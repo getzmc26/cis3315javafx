@@ -59,10 +59,6 @@ public class DataStructureTester extends Application {
         borderPane.setCenter(spData);
         borderPane.setBottom(spStatus);
 
-        for (int i = 0; i < 1000; i++) {
-            taData.appendText("" + i + "\n");
-        }
-
 //        Scene scene = new Scene(borderPane, 800, 500);
         Scene scene = new Scene(borderPane);
         primaryStage.setTitle("Data Structures");
@@ -89,13 +85,13 @@ public class DataStructureTester extends Application {
          * File Menu Section
          */
         MenuItem newCanvas = new MenuItem("New");
-        newCanvas.setOnAction((ActionEvent e) -> {
-
+        newCanvas.setOnAction(e -> {
+            taData.clear();
         });
         fileMenu.getItems().add(newCanvas);
 
         MenuItem open = new MenuItem("Open");
-        open.setOnAction((ActionEvent e) -> {
+        open.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(pStage);
             if (file != null) {
@@ -105,8 +101,7 @@ public class DataStructureTester extends Application {
         fileMenu.getItems().add(open);
 
         MenuItem save = new MenuItem("Save");
-        save.setOnAction((ActionEvent e) -> {
-
+        save.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showSaveDialog(pStage);
             if (file != null) {
@@ -124,9 +119,17 @@ public class DataStructureTester extends Application {
          * Data Menu Section
          */
         MenuItem miGenerateIntegers = new MenuItem("Generate Integers");
+        miGenerateIntegers.setOnAction(e -> {
+            for (int i = 0; i < 1000; i++) {
+                taData.appendText("" + i + "\n");
+            }
+        });
         dataMenu.getItems().add(miGenerateIntegers);
 
         MenuItem miRandom = new MenuItem("Randomize Data");
+        miRandom.setOnAction(e -> {
+
+        });
         dataMenu.getItems().add(miRandom);
 
         /**
@@ -160,11 +163,11 @@ public class DataStructureTester extends Application {
          * Help Menu Section
          */
         MenuItem about = new MenuItem("About");
-        about.setOnAction((ActionEvent e) -> {
+        about.setOnAction(e -> {
             String message = "DATA STRUCTURES AND ALGORITHMS\n";
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
             alert.setTitle("About");
-            alert.setHeaderText("v1.0 by John Phillips");
+            alert.setHeaderText("v1.0 by Matt Getz");
             alert.showAndWait();
         });
         helpMenu.getItems().add(about);
@@ -184,8 +187,7 @@ public class DataStructureTester extends Application {
                 taData.appendText(sc.nextLine() + "\n");
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataStructureTester.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataStructureTester.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -199,9 +201,24 @@ public class DataStructureTester extends Application {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    public static int[] textToIntArray(String s, int n) {
+        Scanner sc = new Scanner(System.in);
+        int[] nums = new int[n];
+        for (int i=0; sc.hasNextInt(); i++) {
+            nums[i] = sc.nextInt();
+        }
+        return nums;
+    }
+    
+    public static String intArrayToString (int[] a) {
+        StringBuilder sb = new StringBuilder();
+        String newLine = "\n";
+        for (int value : a) {
+            sb.append(Integer.toString(value)).append(newLine);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
